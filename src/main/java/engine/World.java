@@ -97,10 +97,14 @@ public class World {
 
             if(lastOpenTile != null){
                 if(!lastOpenTile.getPosition().equals(button.getPosition())){
-                    if(lastOpenTile.getType() == board[x][y].getType())
+                    if(lastOpenTile.getType() == board[x][y].getType()){
                         board[x][y].open();
-                    else
+                        openedTiles++;
+                    }
+                    else{
                         board[lastOpenTile.getPosition().x][lastOpenTile.getPosition().y].hide();
+                        openedTiles--;
+                    }
                 }
                 lastOpenTile = null;
             } else {
