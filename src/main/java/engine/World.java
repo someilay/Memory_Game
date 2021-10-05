@@ -74,8 +74,9 @@ public class World {
         return isWin;
     }
 
-    private boolean winChek(){
-        return (openedTiles == 64);
+    private void winChek(){
+        if(openedTiles == 64)
+            isWin = 1;
     }
 
     int randInt(int min, int max){
@@ -105,8 +106,8 @@ public class World {
                         board[lastOpenTile.getPosition().x][lastOpenTile.getPosition().y].hide();
                         openedTiles--;
                     }
+                    lastOpenTile = null;
                 }
-                lastOpenTile = null;
             } else {
                 board[x][y].open();
                 lastOpenTile = board[x][y];
