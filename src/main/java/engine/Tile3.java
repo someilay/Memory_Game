@@ -8,6 +8,7 @@ public class Tile3 implements Tile{
     private Position position;
 
     public Tile3(int x, int y){
+        isOpen = false;
         this.type = 3;
         this.position.x = x;
         this.position.y = y;
