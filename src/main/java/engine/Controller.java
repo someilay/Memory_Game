@@ -1,4 +1,4 @@
 package main.java.engine;
 
-public class Initial {
+public class Controller {
 }

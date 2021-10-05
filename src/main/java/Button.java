@@ -1,7 +1,7 @@
 package main.java;
 
 public class Button {
-    private final Position position;
+    private Position position;
     private final String name;
 
     public Button(Position position, String name) {
@@ -10,7 +10,8 @@ public class Button {
     }
 
     public Button(int x, int y, String name){
-        this.position = new Position(x, y);
+        this.position.x = x;
+        this.position.y = y;
         this.name = name;
     }
 
