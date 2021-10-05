@@ -1,16 +1,22 @@
 package main.java.engine;
 
+import main.java.Button;
+import main.java.ButtonNames;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class World {
-    final int WORLD_SIZE_X = 8;
-    final int WORLD_SIZE_Y = 8;
+    public static final int WORLD_SIZE_X = 8;
+    public static final int WORLD_SIZE_Y = 8;
 
-    private Tile[][] board;
-    private int win;
-    private int exit;
+    private Tile lastOpenTile;
+    private int openedTiles;
 
-    public World(){
+    public Tile[][] board;
+    private int isWin;
+    private int isExit;
+
+    private void init(){
         TileCreator tileCreator1 = new TileCreator1();
         TileCreator tileCreator2 = new TileCreator2();
         TileCreator tileCreator3 = new TileCreator3();
@@ -48,22 +54,28 @@ public class World {
                 }
             }
         }
+
+        lastOpenTile = null;
     }
 
     public void setWin(int win) {
-        this.win = win;
+        this.isWin = win;
     }
 
     public void setExit(int exit) {
-        this.exit = exit;
+        this.isExit = exit;
     }
 
     public int getExit() {
-        return exit;
+        return isExit;
     }
 
     public int getWin() {
-        return win;
+        return isWin;
+    }
+
+    private boolean winChek(){
+        return (openedTiles == 64);
     }
 
     int randInt(int min, int max){
@@ -72,6 +84,32 @@ public class World {
 
     public Tile[][] getBoard() {
         return board;
+    }
+
+    public void update(Button button){
+        if(button.getName() == ButtonNames.BEGIN)
+            init();
+        else if(button.getName() == ButtonNames.EXIT)
+            isExit = 1;
+        else{
+            int x = button.getPosition().x;
+            int y = button.getPosition().y;
+
+            if(lastOpenTile != null){
+                if(!lastOpenTile.getPosition().equals(button.getPosition())){
+                    if(lastOpenTile.getType() == board[x][y].getType())
+                        board[x][y].open();
+                    else
+                        board[lastOpenTile.getPosition().x][lastOpenTile.getPosition().y].hide();
+                }
+                lastOpenTile = null;
+            } else {
+                board[x][y].open();
+                lastOpenTile = board[x][y];
+            }
+        }
+
+        winChek();
     }
 }
 

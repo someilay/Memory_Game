@@ -14,6 +14,7 @@ public class Tile4 implements Tile{
         this.position.y = y;
     }
 
+    @Override
     public Position getPosition(){
         return this.position;
     }
@@ -28,10 +29,12 @@ public class Tile4 implements Tile{
         isOpen = true;
     }
 
+    @Override
     public boolean isOpen() {
         return isOpen;
     }
 
+    @Override
     public int getType(){
         return type;
     }

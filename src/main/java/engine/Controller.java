@@ -1,5 +1,7 @@
 package main.java.engine;
 
+import main.java.Button;
+
 public class Controller {
     private World world;
 
@@ -7,7 +9,10 @@ public class Controller {
         world = new World();
     }
 
-    public World request(){
+    public World request(Button button){
+        world.update(button);
         return world;
     }
+
+
 }
