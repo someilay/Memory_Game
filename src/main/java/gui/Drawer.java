@@ -13,13 +13,22 @@ public class Drawer {
         this.components = components;
     }
 
-    public void draw(World world){
+    public void draw(World world, Tile lastClickedTile){
+        if (lastClickedTile != null){
+            System.out.printf(
+                    "Last clicked tile is %d and has coordinates (%d, %d)%n",
+                    lastClickedTile.getType(),
+                    lastClickedTile.getPosition().x,
+                    lastClickedTile.getPosition().y
+            );
+        }
+
         if (world != null){
             System.out.println("Field:");
             showField(world);
         }
-        System.out.println("Available buttons: ");
 
+        System.out.println("Available buttons: ");
         printButtons(0, 2);
         printButtons(2, components.size());
 

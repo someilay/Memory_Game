@@ -23,7 +23,7 @@ public class GUI {
 
     public void start(){
         components.initMenuButtons();
-        drawer.draw(null);
+        drawer.draw(null, null);
 
         while (true){
             components.initMenuButtons();
@@ -46,7 +46,7 @@ public class GUI {
                 }
 
                 components.initGameButtons();
-                drawer.draw(response.getWorld());
+                drawer.draw(response.getWorld(), response.getLastClickedTile());
             } else {
                 drawer.printNoSuchButtonError();
             }
