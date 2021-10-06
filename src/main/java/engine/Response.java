@@ -6,7 +6,7 @@ public class Response {
     private boolean isExit;
     private Tile lastClickedTile;
 
-    public Response(World world, boolean isWin, boolean isExit, Tile tile){
+    public Response(World world, boolean isWin, boolean isExit, Tile tile) {
         this.world = world;
         this.isWin = isWin;
         this.isExit = isExit;
@@ -17,7 +17,7 @@ public class Response {
         return world;
     }
 
-    public boolean isWin(){
+    public boolean isWin() {
         return isWin;
     }
 
@@ -25,7 +25,7 @@ public class Response {
         return isExit;
     }
 
-    public Tile getLastClickedTile(){
+    public Tile getLastClickedTile() {
         return lastClickedTile;
     }
 }

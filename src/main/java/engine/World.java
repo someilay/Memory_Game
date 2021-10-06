@@ -1,7 +1,5 @@
 package main.java.engine;
 
-import main.java.Button;
-import main.java.ButtonNames;
 import main.java.Position;
 
 import java.util.ArrayList;
@@ -16,8 +14,9 @@ public class World {
     private int openedTiles;
     private Tile[][] board;
 
-    private void initBoard(){
+    private void initBoard() {
         board = new Tile[WORLD_SIZE_Y][WORLD_SIZE_X];
+
         for (int i = 0; i < WORLD_SIZE_Y; i++) {
             board[i] = new Tile[WORLD_SIZE_X];
         }
@@ -54,7 +53,7 @@ public class World {
         return lastClickedTile;
     }
 
-    int randInt(int min, int max){
+    int randInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
@@ -69,13 +68,13 @@ public class World {
         lastClickedTile = board[y][x];
 
         if (lastOpenTile != null) {
-            if ( !board[y][x].isOpen()) {
-                if ( lastOpenTile.getType() == board[y][x].getType()) {
+            if (!board[y][x].isOpen()) {
+                if (lastOpenTile.getType() == board[y][x].getType()) {
                     board[y][x].open();
                     openedTiles += 2;
-                } else {
+                } else
                     board[lastOpenTile.getPosition().y][lastOpenTile.getPosition().x].hide();
-                }
+
                 lastOpenTile = null;
             }
         } else {

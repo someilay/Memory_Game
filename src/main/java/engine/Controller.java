@@ -14,8 +14,9 @@ public class Controller {
         return (world.getOpenedTiles() == World.WORLD_SIZE_X * World.WORLD_SIZE_Y);
     }
 
-    public Response request(Button button){
+    public Response request(Button button) {
         boolean isExit = false;
+
         if (button.getName() == ButtonNames.BEGIN)
             world.init();
         else if (button.getName() == ButtonNames.EXIT)
@@ -23,9 +24,6 @@ public class Controller {
         else {
             world.update(button.getPosition());
         }
-
-        int x = button.getPosition().x;
-        int y = button.getPosition().y;
 
         return new Response(world, winChek(), isExit, world.getLastClickedTile());
     }
