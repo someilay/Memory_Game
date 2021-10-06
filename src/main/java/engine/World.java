@@ -14,55 +14,55 @@ public class World {
     private int openedTiles;
 
     private Tile[][] board;
-    private int isWin;
-    private int isExit;
+    private boolean isWin;
+    private boolean isExit;
 
     private void initBoard(Tile[][] board){
-        TileCreator[] tileCreator = {new TileCreator1(), new TileCreator2(), new TileCreator3(), new TileCreator4()};
+        TileCreator[] tileCreator = { new TileCreator1(), new TileCreator2(), new TileCreator3(), new TileCreator4() };
         ArrayList<Integer> X = new ArrayList<Integer>(8);
         ArrayList<Integer> Y = new ArrayList<Integer>(8);
+
         for (int i = 0; i < 8; i++) {
             X.add(i);
             Y.add(i);
         }
 
-        for (int i = 0; i < tileCreator.length; i++) {
+        for (TileCreator creator : tileCreator) {
             for (int j = 0; j < WORLD_SIZE_X + WORLD_SIZE_Y; j++) {
                 int x = X.remove(randInt(0, X.size() - 1));
                 int y = Y.remove(randInt(0, Y.size() - 1));
-                board[x][y] = tileCreator[i].create(x, y);
+                board[x][y] = creator.create(x, y);
             }
         }
     }
 
-    private void init(){
-        setWin(0);
-        setExit(0);
+    private void init() {
+        setWin(false);
+        setExit(false);
 
         initBoard(this.board);
 
         this.lastOpenTile = null;
     }
 
-    public void setWin(int win) {
+    public void setWin(boolean win) {
         this.isWin = win;
     }
 
-    public void setExit(int exit) {
+    public void setExit(boolean exit) {
         this.isExit = exit;
     }
 
-    public int getExit() {
+    public boolean getExit() {
         return this.isExit;
     }
 
-    public int getWin() {
+    public boolean getWin() {
         return this.isWin;
     }
 
-    private void winChek(){
-        if(openedTiles == 64)
-            this.isWin = 1;
+    private void winChek() {
+        this.isWin = (openedTiles == 64);
     }
 
     int randInt(int min, int max){
@@ -74,21 +74,20 @@ public class World {
     }
 
     public void update(Button button){
-        if(button.getName() == ButtonNames.BEGIN)
+        if (button.getName() == ButtonNames.BEGIN)
             init();
-        else if(button.getName() == ButtonNames.EXIT)
-            isExit = 1;
-        else{
+        else if (button.getName() == ButtonNames.EXIT)
+            isExit = true;
+        else {
             int x = button.getPosition().x;
             int y = button.getPosition().y;
 
-            if(lastOpenTile != null){
-                if(!lastOpenTile.getPosition().equals(button.getPosition())){
-                    if(lastOpenTile.getType() == board[x][y].getType() && !board[x][y].isOpen()){
+            if (lastOpenTile != null) {
+                if (!lastOpenTile.getPosition().equals(button.getPosition())) {
+                    if (lastOpenTile.getType() == board[x][y].getType() && !board[x][y].isOpen()) {
                         board[x][y].open();
                         openedTiles++;
-                    }
-                    else{
+                    } else {
                         board[lastOpenTile.getPosition().x][lastOpenTile.getPosition().y].hide();
                         openedTiles--;
                     }
