@@ -4,9 +4,6 @@ import main.java.Button;
 import main.java.engine.Controller;
 import main.java.engine.Response;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class GUI {
     private final Controller controller;
@@ -34,6 +31,7 @@ public class GUI {
                 Response response = controller.request(button);
 
                 if (response.isExit()){
+                    drawer.printBuyMessage();
                     break;
                 }
 
@@ -42,10 +40,10 @@ public class GUI {
                     drawer = new Drawer(components.getComponents());
                     inputHandler = new InputHandler(components.getComponents());
                     drawer.printWin();
-                    continue;
+                } else {
+                    components.initGameButtons();
                 }
 
-                components.initGameButtons();
                 drawer.draw(response.getWorld(), response.getLastClickedTile());
             } else {
                 drawer.printNoSuchButtonError();
