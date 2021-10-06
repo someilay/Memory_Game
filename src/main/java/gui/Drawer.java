@@ -17,6 +17,20 @@ public class Drawer {
         if (world != null){
             showField(world);
         }
+        System.out.println("Available buttons: ");
+        for (Button button: components){
+            System.out.print(button + " ");
+        }
+        System.out.println("Input format: BUTTON_NAME or BUTTON_NAME <x> <y>. " +
+                "Last one are needed for specifying concrete button");
+    }
+
+    public void printPreInput(){
+        System.out.print("CLICK: ");
+    }
+
+    public void printNoSuchButtonError(){
+        System.out.println("No such button!");
     }
 
     private void showField(World world){

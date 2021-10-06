@@ -23,4 +23,9 @@ public class Button {
     public ButtonNames getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "%s(%d, %d)".formatted(name, position.x, position.y);
+    }
 }
