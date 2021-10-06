@@ -4,15 +4,22 @@ import main.java.Button;
 import main.java.ButtonNames;
 import main.java.engine.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ComponentsInitializer {
+public class Components {
     private List<Button> components;
     private boolean isGameButtonsInitialized = false;
     private boolean isMenuButtonsInitialized = false;
 
-    public ComponentsInitializer(List<Button> components) {
-        this.components = components;
+    public Components() {
+        this.components = new ArrayList<>();
+    }
+
+    public void resetComponents(){
+        components = new ArrayList<>();
+        isGameButtonsInitialized = false;
+        isMenuButtonsInitialized = false;
     }
 
     public void initMenuButtons(){
@@ -34,5 +41,9 @@ public class ComponentsInitializer {
 
             isGameButtonsInitialized = true;
         }
+    }
+
+    public List<Button> getComponents() {
+        return components;
     }
 }

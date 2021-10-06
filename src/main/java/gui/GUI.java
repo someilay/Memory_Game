@@ -2,7 +2,7 @@ package main.java.gui;
 
 import main.java.Button;
 import main.java.engine.Controller;
-import main.java.engine.World;
+import main.java.engine.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,35 +10,43 @@ import java.util.List;
 
 public class GUI {
     private final Controller controller;
-    private final ComponentsInitializer componentsInitializer;
-    private final InputHandler inputHandler;
-    private final Drawer drawer;
-    private List<Button> components;
+    private final Components components;
+    private InputHandler inputHandler;
+    private Drawer drawer;
 
     public GUI(){
-        components = new ArrayList<>();
         controller = new Controller();
-        inputHandler = new InputHandler(components);
-        drawer = new Drawer(components);
-        componentsInitializer = new ComponentsInitializer(components);
+        components = new Components();
+        drawer = new Drawer(components.getComponents());
+        inputHandler = new InputHandler(components.getComponents());
     }
 
     public void start(){
-        componentsInitializer.initMenuButtons();
+        components.initMenuButtons();
         drawer.draw(null);
+
         while (true){
+            components.initMenuButtons();
             drawer.printPreInput();
+
             Button button = inputHandler.findButton();
-
             if (button != null){
-                World world = controller.request(button);
+                Response response = controller.request(button);
 
-                if (world.getExit()){
+                if (response.isExit()){
                     break;
                 }
 
-                componentsInitializer.initGameButtons();
-                drawer.draw(world);
+                if (response.isWin()){
+                    components.resetComponents();
+                    drawer = new Drawer(components.getComponents());
+                    inputHandler = new InputHandler(components.getComponents());
+                    drawer.printWin();
+                    continue;
+                }
+
+                components.initGameButtons();
+                drawer.draw(response.getWorld());
             } else {
                 drawer.printNoSuchButtonError();
             }

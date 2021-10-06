@@ -19,7 +19,7 @@ public class InputHandler {
     }
 
     public Button findButton(){
-        String nextClick = scanner.next();
+        String nextClick = scanner.nextLine();
         try {
             String buttonName = extractName(nextClick);
             int[] coordinates = extractCoordinates(nextClick);
