@@ -17,6 +17,9 @@ public class World {
 
     private void initBoard(Tile[][] board){
         board = new Tile[WORLD_SIZE_X][WORLD_SIZE_X];
+        for (int i = 0; i < WORLD_SIZE_Y; i++) {
+            board[i] = new Tile[WORLD_SIZE_X];
+        }
 
         TileCreator[] tileCreator = { new TileCreator1(), new TileCreator2(), new TileCreator3(), new TileCreator4() };
         ArrayList<Position> pos = new ArrayList<Position>(64);
