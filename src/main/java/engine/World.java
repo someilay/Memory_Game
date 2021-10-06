@@ -2,6 +2,7 @@ package main.java.engine;
 
 import main.java.Button;
 import main.java.ButtonNames;
+import main.java.Position;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,20 +19,21 @@ public class World {
     private boolean isExit;
 
     private void initBoard(Tile[][] board){
-        TileCreator[] tileCreator = { new TileCreator1(), new TileCreator2(), new TileCreator3(), new TileCreator4() };
-        ArrayList<Integer> X = new ArrayList<Integer>(8);
-        ArrayList<Integer> Y = new ArrayList<Integer>(8);
+        board = new Tile[WORLD_SIZE_X][WORLD_SIZE_X];
 
-        for (int i = 0; i < 8; i++) {
-            X.add(i);
-            Y.add(i);
+        TileCreator[] tileCreator = { new TileCreator1(), new TileCreator2(), new TileCreator3(), new TileCreator4() };
+        ArrayList<Position> pos = new ArrayList<Position>(64);
+
+        for (int i = 0; i < WORLD_SIZE_X; i++) {
+            for (int j = 0; j < WORLD_SIZE_Y; j++) {
+                pos.add(new Position(i, j));
+            }
         }
 
         for (TileCreator creator : tileCreator) {
             for (int j = 0; j < WORLD_SIZE_X + WORLD_SIZE_Y; j++) {
-                int x = X.remove(randInt(0, X.size() - 1));
-                int y = Y.remove(randInt(0, Y.size() - 1));
-                board[x][y] = creator.create(x, y);
+                Position position = pos.remove(randInt(0, pos.size() - 1));
+                board[position.x][position.y] = creator.create(position.x, position.y);
             }
         }
     }
