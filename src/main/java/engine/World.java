@@ -15,7 +15,7 @@ public class World {
     private int openedTiles;
     private Tile[][] board;
 
-    private void initBoard(Tile[][] board){
+    private void initBoard(){
         board = new Tile[WORLD_SIZE_X][WORLD_SIZE_X];
         for (int i = 0; i < WORLD_SIZE_Y; i++) {
             board[i] = new Tile[WORLD_SIZE_X];
@@ -39,7 +39,7 @@ public class World {
     }
 
     public void init() {
-        initBoard(this.board);
+        initBoard();
         this.lastOpenTile = null;
     }
 
