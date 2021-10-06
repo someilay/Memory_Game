@@ -11,7 +11,7 @@ public class Controller {
     }
 
     private boolean winChek() {
-        return (world.getOpenedTiles() == 64);
+        return (world.getOpenedTiles() == World.WORLD_SIZE_X * World.WORLD_SIZE_Y);
     }
 
     public Response request(Button button){
@@ -23,9 +23,10 @@ public class Controller {
         else {
             world.update(button.getPosition());
         }
+
         int x = button.getPosition().x;
         int y = button.getPosition().y;
 
-        return new Response(world, winChek(), isExit, world.getBoard()[x][y]);
+        return new Response(world, winChek(), isExit, world.getLastClickedTile());
     }
 }
