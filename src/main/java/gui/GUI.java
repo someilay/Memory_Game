@@ -1,48 +1,63 @@
 package main.java.gui;
 
 import main.java.Button;
+import main.java.ButtonNames;
 import main.java.engine.Controller;
+import main.java.engine.Tile;
 import main.java.engine.World;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class GUI {
     private final Controller controller;
-    private final List<Button> buttons;
+    private final InputHandler inputHandler;
+    private List<Button> components;
 
     public GUI(){
         controller = new Controller();
-        buttons = new ArrayList<>();
+        initMenuButtons();
+        inputHandler = new InputHandler(components);
     }
 
     public void start(){
-        Scanner scanner = new Scanner(System.in);
         while (true){
-            System.out.print("CLICK: ");
-            String nextButtonName = scanner.next();
-            Button nextButton = null;
+            Button button = inputHandler.findButton();
 
-            for (Button button: buttons) {
-                if (button.getName().equals(nextButtonName)){
-                    nextButton = button;
+            if (button != null){
+                World world = controller.request(button);
+
+                if (world.getExit()){
+                    break;
                 }
-            }
-
-            if (nextButton != null){
-                controller.request();
             } else {
-                System.out.println("Button not found");
+                System.out.println("Error!");
             }
         }
     }
 
-    private void show(World world){
+    private void initMenuButtons(){
+        if (components == null){
+            components = new ArrayList<>();
+        }
 
+        components.add(new Button(0, 0, ButtonNames.BEGIN));
+        components.add(new Button(0, 0, ButtonNames.EXIT));
     }
 
-    private void init(List<Button> buttons){
+    private void initGameButtons(){
+        if (components == null){
+            components = new ArrayList<>();
+        }
 
+        for (int x = 0; x < World.WORLD_SIZE_X; x++) {
+            for (int y = 0; y < World.WORLD_SIZE_Y; y++) {
+                components.add(new Button(x, y, ButtonNames.DEFAULT));
+            }
+        }
     }
 }
