@@ -26,6 +26,6 @@ public class Button {
 
     @Override
     public String toString() {
-        return "%s(%d, %d)".formatted(name, position.x, position.y);
+        return String.format("%s(%d, %d)", name, position.x, position.y);
     }
 }

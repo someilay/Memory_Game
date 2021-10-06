@@ -22,7 +22,7 @@ public class World {
         }
 
         TileCreator[] tileCreator = { new TileCreator1(), new TileCreator2(), new TileCreator3(), new TileCreator4() };
-        ArrayList<Position> pos = new ArrayList<Position>(64);
+        ArrayList<Position> pos = new ArrayList<>(WORLD_SIZE_X * WORLD_SIZE_Y);
 
         for (int i = 0; i < WORLD_SIZE_X; i++) {
             for (int j = 0; j < WORLD_SIZE_Y; j++) {

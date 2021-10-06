@@ -23,6 +23,9 @@ public class Controller {
         else {
             world.update(button.getPosition());
         }
-        return new Response(world, winChek(), isExit);
+        int x = button.getPosition().x;
+        int y = button.getPosition().y;
+
+        return new Response(world, winChek(), isExit, world.getBoard()[x][y]);
     }
 }
