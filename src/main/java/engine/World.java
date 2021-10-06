@@ -3,6 +3,7 @@ package main.java.engine;
 import main.java.Button;
 import main.java.ButtonNames;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class World {
@@ -12,50 +13,35 @@ public class World {
     private Tile lastOpenTile;
     private int openedTiles;
 
-    public Tile[][] board;
+    private Tile[][] board;
     private int isWin;
     private int isExit;
 
-    private void init(){
-        TileCreator tileCreator1 = new TileCreator1();
-        TileCreator tileCreator2 = new TileCreator2();
-        TileCreator tileCreator3 = new TileCreator3();
-        TileCreator tileCreator4 = new TileCreator4();
-        setWin(0);
-        setExit(0);
-        int[] count = {16, 16, 16, 16};
-
-        for (int i = 0; i < WORLD_SIZE_X; i++) {
-            for (int j = 0; j < WORLD_SIZE_Y; j++) {
-                while(true){
-                    int type = randInt(0, 3);
-                    if(count[type] != 0){
-                        if(type == 0){
-                            board[i][j] = tileCreator1.create(i ,j);
-                            count[type]--;
-                            break;
-                        }
-                        else if(type == 1){
-                            board[i][j] = tileCreator2.create(i ,j);
-                            count[type]--;
-                            break;
-                        }
-                        else if(type == 2){
-                            board[i][j] = tileCreator3.create(i ,j);
-                            count[type]--;
-                            break;
-                        }
-                        else if(type == 3){
-                            board[i][j] = tileCreator4.create(i ,j);
-                            count[type]--;
-                            break;
-                        }
-                    }
-                }
-            }
+    private void initBoard(Tile[][] board){
+        TileCreator[] tileCreator = {new TileCreator1(), new TileCreator2(), new TileCreator3(), new TileCreator4()};
+        ArrayList<Integer> X = new ArrayList<Integer>(8);
+        ArrayList<Integer> Y = new ArrayList<Integer>(8);
+        for (int i = 0; i < 8; i++) {
+            X.add(i);
+            Y.add(i);
         }
 
-        lastOpenTile = null;
+        for (int i = 0; i < tileCreator.length; i++) {
+            for (int j = 0; j < WORLD_SIZE_X + WORLD_SIZE_Y; j++) {
+                int x = X.remove(randInt(0, X.size() - 1));
+                int y = Y.remove(randInt(0, Y.size() - 1));
+                board[x][y] = tileCreator[i].create(x, y);
+            }
+        }
+    }
+
+    private void init(){
+        setWin(0);
+        setExit(0);
+
+        initBoard(this.board);
+
+        this.lastOpenTile = null;
     }
 
     public void setWin(int win) {
@@ -67,16 +53,16 @@ public class World {
     }
 
     public int getExit() {
-        return isExit;
+        return this.isExit;
     }
 
     public int getWin() {
-        return isWin;
+        return this.isWin;
     }
 
     private void winChek(){
         if(openedTiles == 64)
-            isWin = 1;
+            this.isWin = 1;
     }
 
     int randInt(int min, int max){
@@ -98,7 +84,7 @@ public class World {
 
             if(lastOpenTile != null){
                 if(!lastOpenTile.getPosition().equals(button.getPosition())){
-                    if(lastOpenTile.getType() == board[x][y].getType()){
+                    if(lastOpenTile.getType() == board[x][y].getType() && !board[x][y].isOpen()){
                         board[x][y].open();
                         openedTiles++;
                     }
