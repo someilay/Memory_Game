@@ -6,13 +6,26 @@ import main.java.engine.World;
 
 import java.util.List;
 
+/**
+ * Class for simulation widget redrawing
+ * Also this class responsible for user notifications about ongoing processes
+ */
 public class Drawer {
     private List<Button> components;
 
+    /**
+     * Constructor for the drawer object
+     * @param components list if tile buttons
+     */
     public Drawer(List<Button> components) {
         this.components = components;
     }
 
+    /**
+     * Function outputs information about available unopened tiles
+     * @param world  receive object that handle operations on tile
+     * @param lastClickedTile last chosen tile, null if it has first chosen
+     */
     public void draw(World world, Tile lastClickedTile){
         if (lastClickedTile != null){
             System.out.printf(
@@ -36,14 +49,23 @@ public class Drawer {
                 "Last one are needed for specifying concrete button");
     }
 
+    /**
+     * Simulation of user clicking
+     */
     public void printPreInput(){
         System.out.println("CLICK:");
     }
 
+    /**
+     * Handler for button fault
+     */
     public void printNoSuchButtonError(){
         System.out.println("No such button!");
     }
 
+    /**
+     * Handler for printing Winning event
+     */
     public void printWin(){
         System.out.println("YOU WIN");
     }
@@ -52,6 +74,10 @@ public class Drawer {
         System.out.println("Buy");
     }
 
+    /**
+     * Function for printing board with tiles
+     * @param world receive object that handle operations on tile
+     */
     private void showField(World world){
         System.out.print("  ");
         for (int x = 0; x < World.WORLD_SIZE_X; x++) {
@@ -73,6 +99,11 @@ public class Drawer {
         }
     }
 
+    /**
+     * Function for printing button type
+     * @param start
+     * @param end
+     */
     private void printButtons(int start, int end){
         int k = 1;
         boolean needToPrintNewLine = false;
