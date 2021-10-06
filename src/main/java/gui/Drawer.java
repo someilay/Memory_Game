@@ -53,8 +53,15 @@ public class Drawer {
     }
 
     private void showField(World world){
+        System.out.print("  ");
+        for (int x = 0; x < World.WORLD_SIZE_X; x++) {
+            System.out.print(x + " ");
+        }
+        System.out.println();
+
         Tile[][] board = world.getBoard();
         for (int y = 0; y < World.WORLD_SIZE_Y; y++) {
+            System.out.print(y + " ");
             for (int x = 0; x < World.WORLD_SIZE_X; x++) {
                 if (board[y][x].isOpen()) {
                     System.out.print(board[y][x].getType() + " ");
