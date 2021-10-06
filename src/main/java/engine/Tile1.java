@@ -2,40 +2,39 @@ package main.java.engine;
 
 import main.java.Position;
 
-public class Tile1 implements Tile{
+public class Tile1 implements Tile {
     private boolean isOpen;
-    private int type;
-    private Position position;
+    private final int type;
+    private final Position position;
 
-    public Tile1(int x, int y){
+    public Tile1(int x, int y) {
         isOpen = false;
         this.type = 1;
-        this.position.x = x;
-        this.position.y = y;
+        position = new Position(x, y);
     }
 
     @Override
-    public Position getPosition(){
+    public Position getPosition() {
         return this.position;
     }
 
     @Override
     public void hide() {
-        isOpen = false;
+        this.isOpen = false;
     }
 
     @Override
     public void open() {
-        isOpen = true;
+        this.isOpen = true;
     }
 
     @Override
     public boolean isOpen() {
-        return isOpen;
+        return this.isOpen;
     }
 
     @Override
-    public int getType(){
-        return type;
+    public int getType() {
+        return this.type;
     }
 }

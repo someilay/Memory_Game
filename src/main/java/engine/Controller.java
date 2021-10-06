@@ -10,9 +10,7 @@ public class Controller {
     }
 
     public World request(Button button){
-        world.update(button);
-        return world;
+        this.world.update(button);
+        return this.world;
     }
-
-
 }
