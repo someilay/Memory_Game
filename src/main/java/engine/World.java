@@ -1,7 +1,5 @@
 package main.java.engine;
 
-import main.java.Button;
-import main.java.ButtonNames;
 import main.java.Position;
 
 import java.util.ArrayList;
@@ -16,8 +14,13 @@ public class World {
     private int openedTiles;
     private Tile[][] board;
 
-    private void initBoard(){
+
+    /**
+     * The function that creates board and fills it with tiles.
+     */
+    private void initBoard() {
         board = new Tile[WORLD_SIZE_Y][WORLD_SIZE_X];
+
         for (int i = 0; i < WORLD_SIZE_Y; i++) {
             board[i] = new Tile[WORLD_SIZE_X];
         }
@@ -39,6 +42,9 @@ public class World {
         }
     }
 
+    /**
+     * The function called to initialize all values in the World.
+     */
     public void init() {
         initBoard();
         lastOpenTile = null;
@@ -46,22 +52,44 @@ public class World {
         openedTiles = 0;
     }
 
+    /**
+     * Getter for number of opened tiles overall.
+     * @return Number of opened tiles.
+     */
     public int getOpenedTiles() {
         return openedTiles;
     }
 
+    /**
+     * Getter for the prevoiusly clicked tile.
+     * @return last tile that was clicked, or null if there are none.
+     */
     public Tile getLastClickedTile() {
         return lastClickedTile;
     }
 
-    int randInt(int min, int max){
+    /**
+     * The function for random integer generation.
+     * @param min - Minimum integer to get in return.
+     * @param max - Maximum integer to get in return.
+     * @return Random integer in range [min, max].
+     */
+    int randInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
+    /**
+     * Getter for the current board state.
+     * @return current board state.
+     */
     public Tile[][] getBoard() {
         return board;
     }
 
+    /**
+     * Function to update the board after some button was cliked.
+     * @param position - position of the button that was clicked.
+     */
     public void update(Position position) {
         int x = position.x;
         int y = position.y;
@@ -69,13 +97,14 @@ public class World {
         lastClickedTile = board[y][x];
 
         if (lastOpenTile != null) {
-            if ( !board[y][x].isOpen()) {
-                if ( lastOpenTile.getType() == board[y][x].getType()) {
+            if (!board[y][x].isOpen()) {
+                if (lastOpenTile.getType() == board[y][x].getType()) {
                     board[y][x].open();
                     openedTiles += 2;
                 } else {
                     board[lastOpenTile.getPosition().y][lastOpenTile.getPosition().x].hide();
                 }
+
                 lastOpenTile = null;
             }
         } else {

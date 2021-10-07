@@ -9,15 +9,26 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * class for simulating user interaction
+ */
 public class InputHandler {
     private List<Button> components;
     private final Scanner scanner;
 
+    /**
+     * onstructor for the Input object
+     * @param components list of tiles
+     */
     public InputHandler(List<Button> components) {
         this.components = components;
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Function for searching particular button
+     * @return Button with name "nextClick"
+     */
     public Button findButton(){
         String nextClick = scanner.nextLine();
         try {
@@ -34,6 +45,11 @@ public class InputHandler {
         }
     }
 
+    /**
+     * Function for getting the name of given button
+     * @param nextClick button name
+     * @return button name if button exist and  null otherwise
+     */
     private String extractName(String nextClick){
         Pattern buttonNamePattern = Pattern.compile("\\w+");
         Matcher buttonNameMatcher = buttonNamePattern.matcher(nextClick);
@@ -45,6 +61,11 @@ public class InputHandler {
         return null;
     }
 
+    /**
+     * @param nextClick button name
+     * @return coordinate of particular button
+     * @throws InputMismatchException in case when there
+     */
     private int[] extractCoordinates(String nextClick) throws InputMismatchException {
         List<Integer> integers = extractInts(nextClick);
 
@@ -62,6 +83,10 @@ public class InputHandler {
         return result;
     }
 
+    /**
+     * @param nextClick button name
+     * @return list of matched buttons
+     */
     private List<Integer> extractInts(String nextClick){
         List<Integer> integers = new ArrayList<>();
         Pattern digitPattern = Pattern.compile("\\d+");
@@ -74,6 +99,12 @@ public class InputHandler {
         return integers;
     }
 
+    /**
+     * Function for finding button
+     * @param buttonName
+     * @param coordinates in range of world size
+     * @return button if found and null otherwise
+     */
     private Button findButtonByCoordinatesAndName(String buttonName, int[] coordinates){
         for (Button button: components){
             if (button.getName().toString().equals(buttonName)){
@@ -89,6 +120,13 @@ public class InputHandler {
         return null;
     }
 
+    /**
+     * Checks validity of user input
+     * @param nextCLick button name 
+     * @param extractedName
+     * @param extractedCoordinates
+     * @return
+     */
     private boolean isInputValid(String nextCLick, String extractedName, int[] extractedCoordinates){
         if (extractedName == null){
             return false;
