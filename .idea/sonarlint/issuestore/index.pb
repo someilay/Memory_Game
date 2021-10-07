@@ -7,7 +7,5 @@ N
 src/main/resources/initial.txt,c\a\cacdae587d4bfa6620b1d8a0cbb4a720c60c97f0
 N
 src/main/java/ButtonNames.java,b\2\b2e1230a43bae06d8528dcd2046bafd26e1ab832
-O
-src/main/java/engine/Tile1.java,d\4\d4527168f6003269b5ebdf73988e5b879353f05e
 K
 src/main/java/Position.java,b\8\b88504b6bb37f29c81091e7dafcb2d78e016a648
