@@ -1,5 +1,6 @@
 package main.java;
 
+import main.java.engine.Controller;
 import main.java.gui.GUI;
 
 /**
@@ -7,7 +8,8 @@ import main.java.gui.GUI;
  */
 public class Main {
     public static void main(String[] args) {
-        GUI gui = new GUI();
+        Controller controller = new Controller();
+        GUI gui = new GUI(controller);
         gui.start();
     }
 }

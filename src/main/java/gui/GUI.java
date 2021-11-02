@@ -17,8 +17,8 @@ public class GUI {
     /**
      * Constructor for the Gui object
      */
-    public GUI(){
-        controller = new Controller();
+    public GUI(Controller controller){
+        this.controller = controller;
         components = new Components();
         drawer = new Drawer(components.getComponents());
         inputHandler = new InputHandler(components.getComponents());
