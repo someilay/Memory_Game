@@ -1,8 +1,8 @@
 package main.java.gui;
 
 import main.java.Button;
-import main.java.engine.Controller;
-import main.java.engine.Response;
+import main.java.middleware.Controller;
+import main.java.middleware.Response;
 
 
 /**
@@ -46,6 +46,7 @@ public class GUI {
 
                 if (response.isWin()){
                     components.resetComponents();
+                    components.initMenuButtons();
                     drawer = new Drawer(components.getComponents());
                     inputHandler = new InputHandler(components.getComponents());
                     drawer.printWin();

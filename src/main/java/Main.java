@@ -1,6 +1,6 @@
 package main.java;
 
-import main.java.engine.Controller;
+import main.java.middleware.Controller;
 import main.java.gui.GUI;
 
 /**

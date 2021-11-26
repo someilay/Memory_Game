@@ -5,6 +5,7 @@ import main.java.Position;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+/** The Receiver class */
 public class World {
     public static final int WORLD_SIZE_X = 4;
     public static final int WORLD_SIZE_Y = 4;
